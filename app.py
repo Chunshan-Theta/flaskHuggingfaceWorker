@@ -2,7 +2,7 @@ from flask import Flask, request
 from Model import run_model
 import config
 from waitress import serve
-
+import logging
 
 app = Flask(__name__)
 
@@ -10,6 +10,9 @@ app = Flask(__name__)
 def helloPOST():
     body = request.json
     corpus = body["corpus"]
+    logger.info("request: corpus:{}".format(corpus))
+
+    #
     result = run_model(data=corpus)
     return {
         "status": "done",
@@ -31,5 +34,7 @@ def helloGET():
     }
 
 if __name__ == "__main__":
-    print(f"running: {config.SERVER}:{config.PORT}")
+    logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger('waitress')
+    logger.info("running waitress server: {}:{}".format(config.SERVER, config.PORT))
     serve(app, host=config.SERVER, port=config.PORT)
