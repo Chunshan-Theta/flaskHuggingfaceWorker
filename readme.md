@@ -11,8 +11,12 @@ docker build -t flask-nlu .
 docker run -it --rm -p 80:80 flask-nlu
 ```
 
-#### testing api
-```commandline
+## testing api
+#### swagger
+[online swagger docs - http://127.0.0.1/api/docs/](http://127.0.0.1/api/docs/)
+
+#### curl
+```
 curl -X POST \
   http://127.0.0.1/ \
   -H 'cache-control: no-cache' \
@@ -24,10 +28,10 @@ curl -X POST \
 
 
 ----
-----
-
+## Example
 #### Example1: translation
 replace `.env` file by `.env.translate` file 
+
 ```
 # SERVER
 PORT=80

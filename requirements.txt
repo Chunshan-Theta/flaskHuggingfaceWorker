@@ -4,3 +4,5 @@ transformers==4.19.1
 python-dotenv
 waitress
 sentencepiece
+flask_swagger_ui
+PyYAML

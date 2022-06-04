@@ -1,0 +1,115 @@
+swagger: "2.0"
+info:
+  description: "build nlu api by `Hugging face` model"
+  version: "1.0.0"
+  title: "Hugging Face Model API"
+  blog: "https://lazyinwork.com/"
+  contact:
+    email: "gavin19950511@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "127.0.0.1"
+basePath: ""
+tags:
+- name: "api"
+  description: "interface of `Hugging face` model"
+  externalDocs:
+    description: "Find out more model"
+    url: "https://huggingface.co/models"
+schemes:
+- "http"
+paths:
+  /:
+    get:
+      tags:
+        - "api"
+      summary: "status of model"
+      description: "status of model"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ServerResult"
+      x-swagger-router-controller: "app.ModelStatus"
+    post:
+      tags:
+      - "api"
+      summary: "build nlu api by hugging face model"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Text Content from user"
+        required: true
+        schema:
+          $ref: "#/definitions/UserContent"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ModelResult"
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "app.ModelRun"
+
+    
+
+definitions:
+  ApiStatus:
+    type: "string"
+    description: "status of operation"
+    enum:
+      - "success"
+
+
+  UserContent:
+    type: "object"
+    required:
+    - "corpus"
+    properties:
+      corpus:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      corpus:
+        - "你在幹嘛"
+        - "我討厭你"
+
+  ServerResult:
+    type: "object"
+    required:
+      - "corpus"
+    properties:
+      MODEL:
+        type: "string"
+      VERSION:
+        type: "string"
+      status:
+        $ref: "#/definitions/ApiStatus"
+
+  ModelResult:
+    type: "object"
+    required:
+      - "corpus"
+    properties:
+      TASK_TYPE:
+        type: "string"
+      MODEL:
+        type: "string"
+      VERSION:
+        type: "string"
+      status:
+        $ref: "#/definitions/ApiStatus"
+      result:
+        type: "array"
+        items:
+          type: "object"
+
