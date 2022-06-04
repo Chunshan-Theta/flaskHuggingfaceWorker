@@ -57,3 +57,24 @@ curl -X POST \
 	"corpus": ["你在幹嘛"]
 }'
 ```
+
+
+====
+
+
+#### Example1: translation
+replace `.env` file by `.env.translate` file 
+```
+# SERVER
+PORT=80
+SERVER=0.0.0.0
+
+# MODEL
+MODEL_NAME=Helsinki-NLP/opus-mt-zh-en
+MODEL_TOKENIZER=Helsinki-NLP/opus-mt-zh-en
+MODEL_VERSION=main
+
+
+# PIPELINE
+TASK_TYPE=text2text-generation
+```
