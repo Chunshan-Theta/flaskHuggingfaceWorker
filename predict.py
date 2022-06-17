@@ -1,36 +1,7 @@
-from transformers import AutoModelForSequenceClassification, pipeline, AutoModelForSeq2SeqLM
 from config import MODEL_NAME, MODEL_VERSION, MODEL_TOKENIZER, TASK_TYPE
-from transformers import AutoTokenizer
-
-
-class Pipeline:
-    def __init__(self, task, model, tokenizer):
-        self.task = task
-        self.model = model
-        self.tokenizer = tokenizer
-        self._pipeline = None
-
-    def __call__(self,text):
-        return self._pipeline(text)
-
-
-class TextClassifyPipeline(Pipeline):
-    def __init__(self, model_name, model_tokenizer, model_version):
-        model = AutoModelForSequenceClassification.from_pretrained(model_name, revision=model_version)
-        tokenizer = AutoTokenizer.from_pretrained(model_tokenizer)
-        task = "text-classification"
-        super().__init__(task, model, tokenizer)
-        self._pipeline = pipeline(self.task, model=self.model, tokenizer=self.tokenizer, return_all_scores=True)
-
-
-class Text2TextPipeline(Pipeline):
-    def __init__(self, model_name, model_tokenizer, model_version):
-        model = AutoModelForSeq2SeqLM.from_pretrained(model_name, revision=model_version)
-        tokenizer = AutoTokenizer.from_pretrained(model_tokenizer)
-        task = "text2text-generation"
-        super().__init__(task, model, tokenizer)
-        self._pipeline = pipeline(self.task, model=self.model, tokenizer=self.tokenizer)
-
+from piplines import TextClassifyPipeline, Text2TextPipeline, TokenPipeline
+import logging
+logger = logging.getLogger('waitress')
 
 
 def getPipeline(TASK_TYPE):
@@ -42,9 +13,12 @@ def getPipeline(TASK_TYPE):
     if "text2text-generation" == TASK_TYPE:
         _pipeline = Text2TextPipeline(MODEL_NAME, MODEL_TOKENIZER, MODEL_VERSION)
 
+    if "TokenClassification" == TASK_TYPE:
+        _pipeline = TokenPipeline(MODEL_NAME, MODEL_TOKENIZER, MODEL_VERSION)
+
     return _pipeline
 
 
 PipelineInterface = getPipeline(TASK_TYPE)
-PipelineInterface("你好嗎")
-# print(PipelineInterface("你好嗎"))
+# PipelineInterface("你好嗎")
+print(PipelineInterface("隨著社會環境的變化科技不斷創新帶給人類更舒適的生活其中如資訊電子光電通訊生物科技以及近年來相當熱門的奈米科技等逐漸進入人類經濟生活圈中改變了生活品質"))

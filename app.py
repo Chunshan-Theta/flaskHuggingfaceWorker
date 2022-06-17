@@ -18,12 +18,14 @@ def ModelRun():
 
     #
     result = run_model(data=corpus)
-    return {
+    responds ={
         "status": "success",
         "MODEL": config.MODEL_NAME,
         "VERSION": config.MODEL_VERSION,
         "result": result
     }
+    logger.info("responds:{}".format(responds))
+    return responds
 
 
 @app.route("/",methods=['GET'])
