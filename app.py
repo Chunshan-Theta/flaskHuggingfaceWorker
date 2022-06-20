@@ -3,12 +3,13 @@ from Model import run_model
 import config
 from waitress import serve
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
 import logging
 from yaml import Loader, load
 
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/",methods=['POST'])
 def ModelRun():

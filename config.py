@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from requests import get
 def getHost():
     ip = get('https://api.ipify.org').content.decode('utf8')
-    return ip
+    return ip or "127.0.0.1"
 
 #
 load_dotenv()

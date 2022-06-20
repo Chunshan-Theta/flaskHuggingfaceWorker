@@ -6,3 +6,4 @@ waitress
 sentencepiece
 flask_swagger_ui
 PyYAML
+flask_cors
