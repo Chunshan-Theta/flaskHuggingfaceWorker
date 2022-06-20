@@ -44,6 +44,7 @@ if __name__ == "__main__":
     # setup
     swagger_path = "./swagger.yaml"
     swagger_yml = load(open(swagger_path, 'r'), Loader=Loader)
+    swagger_yml['host'] = config.HOST
     swaggerui_blueprint = get_swaggerui_blueprint(
         '/api/docs',  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
         swagger_path,
