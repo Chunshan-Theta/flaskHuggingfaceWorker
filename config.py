@@ -1,12 +1,15 @@
 from os import environ as env
 import multiprocessing
 from dotenv import load_dotenv
-import socket
+from requests import get
+def getHost():
+    ip = get('https://api.ipify.org').content.decode('utf8')
+    return ip
 
-
+#
 load_dotenv()
-hostname = socket.gethostname()
-HOST = socket.gethostbyname(hostname)
+
+HOST = getHost()
 PORT = int(env.get("PORT", 80))
 SERVER = str(env.get("SERVER", '0.0.0.0'))
 DEBUG_MODE = int(env.get("DEBUG_MODE", 1))

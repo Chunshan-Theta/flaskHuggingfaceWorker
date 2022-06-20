@@ -57,5 +57,5 @@ if __name__ == "__main__":
     # run server
     logging.basicConfig(level=logging.DEBUG)
     logger = logging.getLogger('waitress')
-    logger.info("running waitress server: {}:{}".format(config.SERVER, config.PORT))
+    logger.info("running waitress server: {}({}):{}".format(config.HOST, config.SERVER, config.PORT))
     serve(app, host=config.SERVER, port=config.PORT)

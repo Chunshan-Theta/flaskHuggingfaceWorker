@@ -19,6 +19,7 @@ tags:
     url: "https://huggingface.co/models"
 schemes:
 - "http"
+- "https"
 paths:
   /:
     get:
